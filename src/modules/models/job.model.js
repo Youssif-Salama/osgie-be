@@ -1,0 +1,81 @@
+import mongoose from "mongoose"
+
+const jobSchema=new mongoose.Schema({
+  Title:{
+    type:String,
+    required:true
+  },
+  IsInternship:{
+    type:Boolean,
+    default:false
+  },
+  Category:{
+    type:String,
+    required:true
+  },
+  Requirements:{
+    type:String,
+    required:true
+  },
+  Description:{
+    type:String,
+    required:true
+  },
+  Salary:{
+    From:{
+      type:String,
+      required:true
+    },
+    To:{
+      type:String,
+      required:true
+    }
+  },
+  Experience:{
+    Min:{
+      type:String,
+      required:true
+    },
+    Max:{
+      type:String,
+      required:true
+    }
+  },
+  AdditionalSalaryDetails:{
+    type:String
+  },
+  Location:{
+    Country:{
+      type:String
+    },
+    City:{
+      type:String
+    }
+  },
+  Type:{
+    type:String,
+    enum:["fulltime","partTime","freelance","shift","volunteering"],
+    required:true
+  },
+  PositionsNo:{
+    type:Number,
+    required:true
+  },
+  WorkArrangement:{
+    type:String,
+    enum:["onSite","remote","hybrid"],
+    required:true
+  },
+  Status:{
+    type:String,
+    enum:["active","inactive"],
+    default:"active",
+  },
+  Deadline:{
+    type:Date,
+    required:true
+  }
+},{timestamps:true});
+
+
+export const jobModel=mongoose.model("Job",jobSchema)
