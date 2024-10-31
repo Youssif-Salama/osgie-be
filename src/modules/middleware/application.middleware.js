@@ -12,3 +12,12 @@ export const sendEmailOnRejectApplication =CatchAsyncErrors( async(req, res, nex
   senMailFun(Email);
   next();
 })
+
+
+export const catchReqFile=(req,res,next)=>{
+  if(!req.file) {
+    return res.status(400).json({ message: "No files were uploaded." });
+  }
+  req.body.Resume=req.file.path
+  next();
+}

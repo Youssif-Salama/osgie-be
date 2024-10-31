@@ -8,14 +8,14 @@ import { execute } from "../../middelwares/Execution.js";
 import { upload } from "../../services/multer/multer.service.js";
 import { sendEmail } from "../../services/nodemailer/nodemailer.js";
 import { normalFilterQuery, pagination, search } from "../../middelwares/Features.middleware.js";
-import { sendEmailOnRejectApplication } from "../middleware/application.middleware.js";
+import { catchReqFile, sendEmailOnRejectApplication } from "../middleware/application.middleware.js";
 
 
 const applicationRouter=Router({
   mergeParams: true
 });
 
-applicationRouter.post("/",upload.single("Resume"),validate(addApplicationSchema),attachAddQuery(applicationModel),sendEmail(),execute(
+applicationRouter.post("/",upload.single("Resume"),catchReqFile,validate(addApplicationSchema),attachAddQuery(applicationModel),sendEmail(),execute(
   {
     status: 200,
     result: {
@@ -45,7 +45,7 @@ applicationRouter.delete("/all",authentication,authorization("company"),attachDe
   }
 ))
 
-applicationRouter.put("/:id",authentication,authorization("company"),attachUpdateQuery(applicationModel),sendEmailOnRejectApplication,normalFilterQuery({fieldName:"_id",paramName:"id"}),execute(
+applicationRouter.put("/:id",authentication,authorization("company"),upload.single("Resume"),catchReqFile,attachUpdateQuery(applicationModel),sendEmailOnRejectApplication,normalFilterQuery({fieldName:"_id",paramName:"id"}),execute(
   {
     status: 200,
     result: {

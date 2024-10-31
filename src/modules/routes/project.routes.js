@@ -6,6 +6,8 @@ import { validate } from "../../middelwares/validation.middleware.js";
 import { execute } from "../../middelwares/Execution.js";
 import { projectModel } from "../models/projects.model.js";
 import { addProjectSchema, updateProjectSchema } from "../../validations/project.validation.js";
+import { upload } from "../../services/multer/multer.service.js";
+import { catchReqFile } from "../middleware/project.middleware.js";
 
 
 const projectRouter=Router();
@@ -25,7 +27,7 @@ projectRouter.get("/",authentication,authorization("company"),attachGetQuery(pro
   }
 ))
 
-projectRouter.post("/",authentication,authorization("company"),validate(addProjectSchema),attachAddQuery(projectModel),execute(
+projectRouter.post("/",authentication,authorization("company"),upload.single("Image"),catchReqFile,validate(addProjectSchema),attachAddQuery(projectModel),execute(
   {
     status: 200,
     result: {
@@ -40,7 +42,7 @@ projectRouter.post("/",authentication,authorization("company"),validate(addProje
   }
 ))
 
-projectRouter.put("/:id",authentication,authorization("company"),validate(updateProjectSchema),attachUpdateQuery(projectModel),normalFilterQuery({fieldName:"_id",paramName:"id"}),execute(
+projectRouter.put("/:id",authentication,authorization("company"),upload.single("Image"),catchReqFile,validate(updateProjectSchema),attachUpdateQuery(projectModel),normalFilterQuery({fieldName:"_id",paramName:"id"}),execute(
   {
     status: 200,
     result: {
