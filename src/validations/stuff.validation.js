@@ -41,6 +41,8 @@ export const addStuffSchema = Joi.object({
           }),
       })
     )
+    .optional(),
+    Image: Joi.string()
     .optional()
 });
 
@@ -83,5 +85,7 @@ export const updateStuffSchema = Joi.object({
           }),
       })
     )
+    .optional(),
+    Image: Joi.string()
     .optional()
 });

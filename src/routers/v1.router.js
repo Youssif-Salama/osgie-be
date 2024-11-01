@@ -7,6 +7,8 @@ import { feedbackRouter } from "../modules/routes/feedback.routes.js";
 import { projectRouter } from "../modules/routes/project.routes.js";
 import { serviceRouter } from "../modules/routes/services.routes.js";
 import { stuffRouter } from "../modules/routes/stuff.routes.js";
+import { heroRouter } from "../modules/routes/hero.routes.js";
+import { whyChooseUsRouter } from "../modules/routes/whyChooseUs.routes.js";
 
 const v1Router = Router();
 
@@ -22,6 +24,10 @@ v1Router.use("/feedback",feedbackRouter);
 v1Router.use("/project",projectRouter);
 v1Router.use("/service",serviceRouter);
 v1Router.use("/stuff",stuffRouter);
+v1Router.use("/hero",heroRouter);
+v1Router.use("/whyChooseUs",whyChooseUsRouter);
+
+
 
 
 export { v1Router }

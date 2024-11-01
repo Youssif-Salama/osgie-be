@@ -6,6 +6,8 @@ import { normalFilterQuery, pagination } from "../../middelwares/Features.middle
 import { validate } from "../../middelwares/validation.middleware.js";
 import { addFeedbackSchema, updateFeedbackSchema } from "../../validations/feedback.validation.js";
 import { execute } from "../../middelwares/Execution.js";
+import { catchReqFile } from "../middleware/feedback.middleware.js";
+import { upload } from "../../services/multer/multer.service.js";
 
 
 const feedbackRouter=Router();
@@ -25,7 +27,7 @@ feedbackRouter.get("/",authentication,authorization("company"),attachGetQuery(fe
   }
 ))
 
-feedbackRouter.post("/",authentication,authorization("company"),validate(addFeedbackSchema),attachAddQuery(feedbackModel),execute(
+feedbackRouter.post("/",authentication,authorization("company"),upload.single("Image"),catchReqFile,validate(addFeedbackSchema),attachAddQuery(feedbackModel),execute(
   {
     status: 200,
     result: {
@@ -40,7 +42,7 @@ feedbackRouter.post("/",authentication,authorization("company"),validate(addFeed
   }
 ))
 
-feedbackRouter.put("/:id",authentication,authorization("company"),validate(updateFeedbackSchema),attachUpdateQuery(feedbackModel),normalFilterQuery({fieldName:"_id",paramName:"id"}),execute(
+feedbackRouter.put("/:id",authentication,authorization("company"),upload.single("Image"),catchReqFile,validate(updateFeedbackSchema),attachUpdateQuery(feedbackModel),normalFilterQuery({fieldName:"_id",paramName:"id"}),execute(
   {
     status: 200,
     result: {

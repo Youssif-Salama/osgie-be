@@ -9,6 +9,9 @@ const feedbackSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  Image: {
+    type: String,
+  }
 }, { timestamps: true });
 
 export const feedbackModel = mongoose.model("Feedback", feedbackSchema)

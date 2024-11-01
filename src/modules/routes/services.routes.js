@@ -6,6 +6,8 @@ import { validate } from "../../middelwares/validation.middleware.js";
 import { execute } from "../../middelwares/Execution.js";
 import { serviceModel } from "../models/services.model.js";
 import { addServiceSchema, updateServiceSchema } from "../../validations/services.validation.js";
+import { catchReqFile } from "../middleware/service.middleware.js";
+import { upload } from "../../services/multer/multer.service.js";
 
 
 const serviceRouter=Router();
@@ -25,7 +27,7 @@ serviceRouter.get("/",authentication,authorization("company"),attachGetQuery(ser
   }
 ))
 
-serviceRouter.post("/",authentication,authorization("company"),validate(addServiceSchema),attachAddQuery(serviceModel),execute(
+serviceRouter.post("/",authentication,authorization("company"),upload.single("Icon"),catchReqFile,validate(addServiceSchema),attachAddQuery(serviceModel),execute(
   {
     status: 200,
     result: {
@@ -40,7 +42,7 @@ serviceRouter.post("/",authentication,authorization("company"),validate(addServi
   }
 ))
 
-serviceRouter.put("/:id",authentication,authorization("company"),validate(updateServiceSchema),attachUpdateQuery(serviceModel),normalFilterQuery({fieldName:"_id",paramName:"id"}),execute(
+serviceRouter.put("/:id",authentication,authorization("company"),upload.single("Icon"),catchReqFile,validate(updateServiceSchema),attachUpdateQuery(serviceModel),normalFilterQuery({fieldName:"_id",paramName:"id"}),execute(
   {
     status: 200,
     result: {

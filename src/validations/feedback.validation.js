@@ -13,6 +13,8 @@ export const addFeedbackSchema = Joi.object({
       "string.empty": "Review is required.",
       "any.required": "Review is required.",
     }),
+    Image: Joi.string()
+    .optional()
 });
 
 
@@ -27,4 +29,6 @@ export const updateFeedbackSchema = Joi.object({
     .messages({
       "string.empty": "Review must not be empty.",
     }),
+    Image: Joi.string()
+    .optional()
 });

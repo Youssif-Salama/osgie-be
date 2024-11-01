@@ -18,17 +18,14 @@ const applicationSchema=new mongoose.Schema({
     type:String,
     required:true
   },
-  Address:{
-    type:String,
-    required:true
-  },
   CoverLetter:{
     type:String,
-    required:true
   },
   Resume:{
     type:String,
-    required:true
+  },
+  Link:{
+    type:String,
   },
   Considration:{
     type:Boolean,

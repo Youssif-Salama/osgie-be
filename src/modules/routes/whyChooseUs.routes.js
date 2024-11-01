@@ -4,15 +4,13 @@ import { attachAddQuery, attachDeleteQuery, attachGetQuery, attachUpdateQuery } 
 import { normalFilterQuery, pagination } from "../../middelwares/Features.middleware.js";
 import { validate } from "../../middelwares/validation.middleware.js";
 import { execute } from "../../middelwares/Execution.js";
-import { stuffModel } from "../models/stuff.model.js";
-import { addStuffSchema, updateStuffSchema } from "../../validations/stuff.validation.js";
-import { catchReqFile } from "../middleware/stuff.middleware.js";
-import { upload } from "../../services/multer/multer.service.js";
+import { addWhyChooseUsSchema, updateWhyChooseUsSchema } from "../../validations/whyChooseUs.validation.js";
+import { whyChooseUsModel } from "../models/whyChooseUs.model.js";
 
 
-const stuffRouter=Router();
+const whyChooseUsRouter=Router();
 
-stuffRouter.get("/",authentication,authorization("company"),attachGetQuery(stuffModel),pagination(10),execute(
+whyChooseUsRouter.get("/",authentication,authorization("company"),attachGetQuery(whyChooseUsModel),pagination(10),execute(
   {
     status: 200,
     result: {
@@ -27,7 +25,7 @@ stuffRouter.get("/",authentication,authorization("company"),attachGetQuery(stuff
   }
 ))
 
-stuffRouter.post("/",authentication,authorization("company"),upload.single("Image"),catchReqFile,validate(addStuffSchema),attachAddQuery(stuffModel),execute(
+whyChooseUsRouter.post("/",authentication,authorization("company"),validate(addWhyChooseUsSchema),attachAddQuery(whyChooseUsModel),execute(
   {
     status: 200,
     result: {
@@ -42,7 +40,7 @@ stuffRouter.post("/",authentication,authorization("company"),upload.single("Imag
   }
 ))
 
-stuffRouter.put("/:id",authentication,authorization("company"),upload.single("Image"),catchReqFile,validate(updateStuffSchema),attachUpdateQuery(stuffModel),normalFilterQuery({fieldName:"_id",paramName:"id"}),execute(
+whyChooseUsRouter.put("/:id",authentication,authorization("company"),validate(updateWhyChooseUsSchema),attachUpdateQuery(whyChooseUsModel),normalFilterQuery({fieldName:"_id",paramName:"id"}),execute(
   {
     status: 200,
     result: {
@@ -58,7 +56,7 @@ stuffRouter.put("/:id",authentication,authorization("company"),upload.single("Im
 ))
 
 
-stuffRouter.delete("/",authentication,authorization("company"),attachDeleteQuery(stuffModel),execute(
+whyChooseUsRouter.delete("/",authentication,authorization("company"),attachDeleteQuery(whyChooseUsModel),execute(
   {
     status: 200,
     result: {
@@ -73,7 +71,7 @@ stuffRouter.delete("/",authentication,authorization("company"),attachDeleteQuery
   }
 ))
 
-stuffRouter.delete("/:id",authentication,authorization("company"),attachDeleteQuery(stuffModel),normalFilterQuery({fieldName:"_id",paramName:"id"}),execute(
+whyChooseUsRouter.delete("/:id",authentication,authorization("company"),attachDeleteQuery(whyChooseUsModel),normalFilterQuery({fieldName:"_id",paramName:"id"}),execute(
   {
     status: 200,
     result: {
@@ -88,4 +86,4 @@ stuffRouter.delete("/:id",authentication,authorization("company"),attachDeleteQu
   }
 ))
 
-export {stuffRouter}
+export {whyChooseUsRouter}

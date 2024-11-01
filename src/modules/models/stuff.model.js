@@ -18,7 +18,10 @@ const stuffSchema=new mongoose.Schema({
   SocialLinks:[{
     Name:String,
     Link:String
-  }]
+  }],
+  Image:{
+    type:String
+  }
 },{
   timestamps:true
 })

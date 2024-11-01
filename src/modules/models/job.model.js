@@ -17,6 +17,10 @@ const jobSchema=new mongoose.Schema({
     type:String,
     required:true
   },
+  Responsibilities:{
+    type:String,
+    required:true
+  },
   Description:{
     type:String,
     required:true
@@ -73,6 +77,10 @@ const jobSchema=new mongoose.Schema({
   },
   Deadline:{
     type:Date,
+    required:true
+  },
+  CareerLevel:{
+    type:String,
     required:true
   }
 },{timestamps:true});
